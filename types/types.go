@@ -6,7 +6,7 @@ import (
 
 type Tag struct {
 	Name     string
-	Priority int
+	Priority int // Sefault priority for tasks with this tag
 }
 
 type Note struct {
@@ -24,5 +24,10 @@ type Task struct {
 	Creation   time.Time
 	Completion time.Time
 	Expiration time.Time
-	Elapsed    int
+	Elapsed    int // Seconds spent on the task
+}
+
+type Db struct {
+	tasks []Task
+	tags  []Tag // List of user-defined tags
 }
