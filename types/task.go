@@ -11,12 +11,13 @@ type Task struct {
 	Name       string        `json:"name"`
 	Done       bool          `json:"done"`
 	Priority   int           `json:"priority"`
-	TagId      int           `json:"tagId"`
+	Tag        string        `json:"tag"`
 	Notes      []Note        `json:"notes"`
 	Creation   time.Time     `json:"creation"`
 	Completion time.Time     `json:"completion"`
 	Expiration time.Time     `json:"expiration"`
 	Timer      time.Duration `json:"timer"`
+	Deleted    bool          `json:"deleted"`
 }
 
 func (t Task) String() string {

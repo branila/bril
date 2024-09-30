@@ -6,7 +6,7 @@ func PrettifyObject(o any) string {
 	jsonData, err := json.MarshalIndent(o, "", "  ")
 
 	if err != nil {
-		return "{}"
+		return `MarshalError`
 	}
 
 	return string(jsonData)
