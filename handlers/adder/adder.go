@@ -29,7 +29,7 @@ func Add() {
 		Name:     name,
 		Priority: getPriority(flags.priority, tag.Priority),
 		Tag:      tag.Name,
-		Notes:    getNotes(flags.note),
+		Note:     flags.note,
 		Creation: time.Now(),
 		Deadline: getDeadline(flags.due),
 	}
