@@ -6,6 +6,7 @@ import (
 
 	"github.com/branila/bril/db"
 	"github.com/branila/bril/handlers/adder"
+	"github.com/branila/bril/handlers/lister"
 )
 
 func main() {
@@ -19,6 +20,9 @@ func main() {
 	switch os.Args[1] {
 	case "add":
 		adder.Add()
+
+	case "list":
+		lister.Show()
 
 	default:
 		fmt.Println("Unknown command")
