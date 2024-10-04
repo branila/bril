@@ -12,7 +12,7 @@ type Task struct {
 	Done       bool          `json:"done"`
 	Priority   int           `json:"priority"`
 	Tag        string        `json:"tag"`
-	Notes      []string      `json:"notes"`
+	Note       string        `json:"note"`
 	Creation   time.Time     `json:"creation"`
 	Completion time.Time     `json:"completion"`
 	Deadline   time.Time     `json:"deadline"`
