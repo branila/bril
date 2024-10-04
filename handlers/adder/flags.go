@@ -25,6 +25,7 @@ func getFlags() AdderFlags {
 
 	flag.StringVar(&flags.due, "d", "", "Task due date")
 	flag.StringVar(&flags.due, "due", "", "Task due date")
+	flag.StringVar(&flags.due, "deadline", "", "Task due date")
 
 	flag.StringVar(&flags.tag, "t", "", "Task tag")
 	flag.StringVar(&flags.tag, "tag", "", "Task tag")
