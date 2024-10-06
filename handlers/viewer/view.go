@@ -1,4 +1,4 @@
-package shower
+package viewer
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/branila/bril/db"
 )
 
-func Show() {
+func View() {
 	tasks := db.GetTasks()
 
 	var taskId int

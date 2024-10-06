@@ -7,7 +7,7 @@ import (
 	"github.com/branila/bril/db"
 	"github.com/branila/bril/handlers/adder"
 	"github.com/branila/bril/handlers/lister"
-	"github.com/branila/bril/handlers/shower"
+	"github.com/branila/bril/handlers/viewer"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func main() {
 		lister.List()
 
 	case "show":
-		shower.Show()
+		viewer.View()
 
 	default:
 		fmt.Println("Unknown command")

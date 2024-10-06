@@ -1,4 +1,4 @@
-package shower
+package viewer
 
 import (
 	"fmt"
