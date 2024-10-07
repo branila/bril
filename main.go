@@ -5,9 +5,10 @@ import (
 	"os"
 
 	"github.com/branila/bril/db"
-	"github.com/branila/bril/handlers/adder"
-	"github.com/branila/bril/handlers/lister"
-	"github.com/branila/bril/handlers/viewer"
+	addHandler "github.com/branila/bril/handlers/add"
+	doneHandler "github.com/branila/bril/handlers/done"
+	listHandler "github.com/branila/bril/handlers/list"
+	viewHandler "github.com/branila/bril/handlers/view"
 )
 
 func main() {
@@ -20,13 +21,16 @@ func main() {
 
 	switch os.Args[1] {
 	case "add":
-		adder.Add()
+		addHandler.Add()
 
 	case "list":
-		lister.List()
+		listHandler.List()
 
-	case "show":
-		viewer.View()
+	case "view":
+		viewHandler.View()
+
+	case "done":
+		doneHandler.Done()
 
 	default:
 		fmt.Println("Unknown command")

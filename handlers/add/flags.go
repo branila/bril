@@ -1,4 +1,4 @@
-package adder
+package handlers
 
 import (
 	"flag"
@@ -6,19 +6,19 @@ import (
 	"github.com/branila/bril/utils"
 )
 
-type AdderFlags struct {
+type addFlags struct {
 	priority int
 	due      string
 	tag      string
 	note     string
 }
 
-func (f AdderFlags) String() string {
+func (f addFlags) String() string {
 	return utils.PrettifyObject(f)
 }
 
-func getFlags() AdderFlags {
-	var flags AdderFlags
+func getFlags() addFlags {
+	var flags addFlags
 
 	flag.IntVar(&flags.priority, "p", -1, "Task priority")
 	flag.IntVar(&flags.priority, "priority", -1, "Task priority")
