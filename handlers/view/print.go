@@ -1,4 +1,4 @@
-package handlers
+package viewer
 
 import (
 	"fmt"
@@ -7,7 +7,22 @@ import (
 )
 
 func printTask(task types.Task) {
-	fmt.Printf("\n[%d] %s\n", task.Id, task.Name)
+	fmt.Printf("\n[%d] %s", task.Id, task.Name)
+
+	if task.Done {
+		fmt.Print(" (done")
+
+		if task.Deleted {
+			fmt.Print(", deleted")
+		}
+
+		fmt.Print(")")
+
+	} else if task.Deleted {
+		fmt.Print(" (deleted)")
+	}
+
+	fmt.Println()
 
 	if task.Priority != 0 {
 		fmt.Printf("  - Priority: %d\n", task.Priority)

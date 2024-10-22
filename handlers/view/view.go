@@ -1,8 +1,7 @@
-package handlers
+package viewer
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
@@ -10,26 +9,22 @@ import (
 )
 
 func View() {
-	tasks := db.GetTasks()
-
-	var taskId int
-
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: bril show <task_id>")
+		fmt.Println("Usage: view show <task_id>")
 		return
 	}
 
 	taskId, err := strconv.Atoi(os.Args[2])
 	if err != nil {
-		log.Fatal("Invalid task id")
+		fmt.Println("Invalid task id")
+		return
 	}
 
-	for _, task := range tasks {
-		if task.Id == taskId && !task.Deleted {
-			printTask(task)
-			return
-		}
+	task, found := db.GetTask(taskId)
+	if !found {
+		fmt.Println("Task not found")
+		return
 	}
 
-	log.Fatal("Task not found")
+	printTask(task)
 }
