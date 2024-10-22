@@ -11,5 +11,5 @@ func GetTags() []types.Tag {
 func CreateTag(t types.Tag) {
 	db.Tags = append(db.Tags, t)
 
-	syncDb()
+	SyncDb()
 }

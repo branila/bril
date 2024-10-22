@@ -13,7 +13,7 @@ const dbName = "bril.json"
 
 var db = types.Db{}
 
-func syncDb() {
+func SyncDb() {
 	jsonData, err := json.MarshalIndent(db, "", "  ")
 	if err != nil {
 		log.Fatal(err)
