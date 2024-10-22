@@ -8,6 +8,7 @@ import (
 	adder "github.com/branila/bril/handlers/add"
 	doer "github.com/branila/bril/handlers/done"
 	lister "github.com/branila/bril/handlers/list"
+	undoer "github.com/branila/bril/handlers/undo"
 	viewer "github.com/branila/bril/handlers/view"
 )
 
@@ -31,6 +32,9 @@ func main() {
 
 	case "done":
 		doer.Done()
+
+	case "undo":
+		undoer.Undo()
 
 	default:
 		fmt.Println("Unknown command")
