@@ -1,31 +1,31 @@
 package adder
 
 import (
-	"log"
+	"fmt"
 	"regexp"
 	"time"
 )
 
-func getDeadline(due string) time.Time {
+func getDeadline(due string) (time.Time, error) {
 	if due == "" {
-		return time.Time{}
+		return time.Time{}, nil
 	}
 
 	layout, found := findDateFormat(due)
 	if !found {
-		log.Fatal("Unknown date format")
+		return time.Time{}, fmt.Errorf("Unknown date format")
 	}
 
 	deadline, err := time.Parse(layout, due)
 	if err != nil {
-		log.Fatal(err)
+		return time.Time{}, fmt.Errorf("Failed to parse date")
 	}
 
 	if layout == "15:04" {
 		deadline = adjustTime(deadline)
 	}
 
-	return deadline
+	return deadline, nil
 }
 
 func findDateFormat(due string) (string, bool) {

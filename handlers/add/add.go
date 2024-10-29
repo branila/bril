@@ -29,6 +29,12 @@ func Add() {
 		return
 	}
 
+	deadline, err := getDeadline(flags.Due)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	task := types.Task{
 		Id:       len(db.GetTasks()),
 		Name:     name,
@@ -36,7 +42,7 @@ func Add() {
 		Tag:      tag.Name,
 		Note:     flags.Note,
 		Creation: time.Now(),
-		Deadline: getDeadline(flags.Due),
+		Deadline: deadline,
 	}
 
 	db.CreateTask(task)
