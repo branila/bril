@@ -20,7 +20,7 @@ func main() {
 	defer fmt.Println()
 
 	if len(os.Args) < 2 {
-		fmt.Print("Usage: bril <command> [args]\n")
+		fmt.Println("Usage: bril <command> [args]")
 		return
 	}
 
