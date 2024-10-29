@@ -35,10 +35,16 @@ func Add() {
 		return
 	}
 
+	priority, err := getPriority(flags.Priority, tag.Priority)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	task := types.Task{
 		Id:       len(db.GetTasks()),
 		Name:     name,
-		Priority: getPriority(flags.Priority, tag.Priority),
+		Priority: priority,
 		Tag:      tag.Name,
 		Note:     flags.Note,
 		Creation: time.Now(),

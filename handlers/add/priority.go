@@ -1,8 +1,8 @@
 package adder
 
-import "log"
+import "fmt"
 
-func getPriority(setPriority, tagPriority int) int {
+func getPriority(setPriority, tagPriority int) (int, error) {
 	isPrioritySet := setPriority != -1
 	hasTagPriority := tagPriority != -1
 
@@ -11,7 +11,7 @@ func getPriority(setPriority, tagPriority int) int {
 	}
 
 	if setPriority < 0 || setPriority > 10 {
-		log.Fatal("Priority must be in the range of 0-10")
+		return 0, fmt.Errorf("Priority must be in the range of 0-10")
 	}
 
 	priority := setPriority
