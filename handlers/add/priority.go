@@ -7,7 +7,7 @@ func getPriority(setPriority, tagPriority int) (int, error) {
 	hasTagPriority := tagPriority != -1
 
 	if !isPrioritySet && !hasTagPriority {
-		return 0
+		return 0, nil
 	}
 
 	if setPriority < 0 || setPriority > 10 {
@@ -20,5 +20,5 @@ func getPriority(setPriority, tagPriority int) (int, error) {
 		priority = tagPriority
 	}
 
-	return priority
+	return priority, nil
 }
