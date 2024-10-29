@@ -22,21 +22,21 @@ func Add() {
 
 	flags := getFlags()
 
-	tag := getTag(flags.tag)
+	tag := getTag(flags.Tag)
 
-	if tag.Name == "" {
-		fmt.Printf("Tag '%s' not found\n", flags.tag)
+	if flags.Tag != "" && tag.Name == "" {
+		fmt.Printf("Tag '%s' not found\n", flags.Tag)
 		return
 	}
 
 	task := types.Task{
 		Id:       len(db.GetTasks()),
 		Name:     name,
-		Priority: getPriority(flags.priority, tag.Priority),
+		Priority: getPriority(flags.Priority, tag.Priority),
 		Tag:      tag.Name,
-		Note:     flags.note,
+		Note:     flags.Note,
 		Creation: time.Now(),
-		Deadline: getDeadline(flags.due),
+		Deadline: getDeadline(flags.Due),
 	}
 
 	db.CreateTask(task)

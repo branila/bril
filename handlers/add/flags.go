@@ -6,32 +6,32 @@ import (
 	"github.com/branila/bril/utils"
 )
 
-type addFlags struct {
-	priority int
-	due      string
-	tag      string
-	note     string
+type AddFlags struct {
+	Priority int
+	Due      string
+	Tag      string
+	Note     string
 }
 
-func (f addFlags) String() string {
+func (f AddFlags) String() string {
 	return utils.PrettifyObject(f)
 }
 
-func getFlags() addFlags {
-	var flags addFlags
+func getFlags() AddFlags {
+	var flags AddFlags
 
-	flag.IntVar(&flags.priority, "p", -1, "Task priority")
-	flag.IntVar(&flags.priority, "priority", -1, "Task priority")
+	flag.IntVar(&flags.Priority, "p", -1, "Task Priority")
+	flag.IntVar(&flags.Priority, "Priority", -1, "Task Priority")
 
-	flag.StringVar(&flags.due, "d", "", "Task due date")
-	flag.StringVar(&flags.due, "due", "", "Task due date")
-	flag.StringVar(&flags.due, "deadline", "", "Task due date")
+	flag.StringVar(&flags.Due, "d", "", "Task Due date")
+	flag.StringVar(&flags.Due, "Due", "", "Task Due date")
+	flag.StringVar(&flags.Due, "deadline", "", "Task Due date")
 
-	flag.StringVar(&flags.tag, "t", "", "Task tag")
-	flag.StringVar(&flags.tag, "tag", "", "Task tag")
+	flag.StringVar(&flags.Tag, "t", "", "Task Tag")
+	flag.StringVar(&flags.Tag, "Tag", "", "Task Tag")
 
-	flag.StringVar(&flags.note, "n", "", "Task note")
-	flag.StringVar(&flags.note, "note", "", "Task note")
+	flag.StringVar(&flags.Note, "n", "", "Task Note")
+	flag.StringVar(&flags.Note, "Note", "", "Task Note")
 
 	flag.Parse()
 
