@@ -3,26 +3,12 @@ package viewer
 import (
 	"fmt"
 
+	lister "github.com/branila/bril/handlers/list"
 	"github.com/branila/bril/types"
 )
 
 func printTask(task types.Task) {
-	fmt.Printf("\n[%d] %s", task.Id, task.Name)
-
-	if task.Done {
-		fmt.Print(" (done")
-
-		if task.Deleted {
-			fmt.Print(", deleted")
-		}
-
-		fmt.Print(")")
-
-	} else if task.Deleted {
-		fmt.Print(" (deleted)")
-	}
-
-	fmt.Println()
+	lister.PrintTaskBrief(task)
 
 	if task.Priority != 0 {
 		fmt.Printf("  - Priority: %d\n", task.Priority)
@@ -41,6 +27,4 @@ func printTask(task types.Task) {
 	if task.Note != "" {
 		fmt.Printf("  - Note: %s\n", task.Note)
 	}
-
-	fmt.Println()
 }

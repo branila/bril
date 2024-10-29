@@ -24,6 +24,11 @@ func Add() {
 
 	tag := getTag(flags.tag)
 
+	if tag.Name == "" {
+		fmt.Printf("Tag '%s' not found\n", flags.tag)
+		return
+	}
+
 	task := types.Task{
 		Id:       len(db.GetTasks()),
 		Name:     name,
@@ -35,4 +40,6 @@ func Add() {
 	}
 
 	db.CreateTask(task)
+
+	fmt.Printf("Created task '%s' (Id: %d)\n", task.Name, task.Id)
 }

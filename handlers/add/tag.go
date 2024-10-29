@@ -1,7 +1,6 @@
 package adder
 
 import (
-	"log"
 	"strings"
 
 	"github.com/branila/bril/db"
@@ -9,11 +8,13 @@ import (
 )
 
 func getTag(tag string) types.Tag {
+	defaultTag := types.Tag{
+		Name:     "",
+		Priority: -1,
+	}
+
 	if tag == "" {
-		return types.Tag{
-			Name:     "",
-			Priority: -1,
-		}
+		return defaultTag
 	}
 
 	tags := db.GetTags()
@@ -24,7 +25,5 @@ func getTag(tag string) types.Tag {
 		}
 	}
 
-	log.Fatalf("Tag %s not found", tag)
-
-	return types.Tag{}
+	return defaultTag
 }
