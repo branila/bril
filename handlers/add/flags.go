@@ -2,6 +2,7 @@ package adder
 
 import (
 	"flag"
+	"os"
 
 	"github.com/branila/bril/utils"
 )
@@ -20,20 +21,22 @@ func (f AddFlags) String() string {
 func getFlags() AddFlags {
 	var flags AddFlags
 
-	flag.IntVar(&flags.Priority, "p", -1, "Task Priority")
-	flag.IntVar(&flags.Priority, "Priority", -1, "Task Priority")
+	fs := flag.NewFlagSet("addFlags", flag.ExitOnError)
 
-	flag.StringVar(&flags.Due, "d", "", "Task Due date")
-	flag.StringVar(&flags.Due, "Due", "", "Task Due date")
-	flag.StringVar(&flags.Due, "deadline", "", "Task Due date")
+	fs.IntVar(&flags.Priority, "p", -1, "Task Priority")
+	fs.IntVar(&flags.Priority, "Priority", -1, "Task Priority")
 
-	flag.StringVar(&flags.Tag, "t", "", "Task Tag")
-	flag.StringVar(&flags.Tag, "Tag", "", "Task Tag")
+	fs.StringVar(&flags.Due, "d", "", "Task Due date")
+	fs.StringVar(&flags.Due, "Due", "", "Task Due date")
+	fs.StringVar(&flags.Due, "deadline", "", "Task Due date")
 
-	flag.StringVar(&flags.Note, "n", "", "Task Note")
-	flag.StringVar(&flags.Note, "Note", "", "Task Note")
+	fs.StringVar(&flags.Tag, "t", "", "Task Tag")
+	fs.StringVar(&flags.Tag, "Tag", "", "Task Tag")
 
-	flag.Parse()
+	fs.StringVar(&flags.Note, "n", "", "Task Note")
+	fs.StringVar(&flags.Note, "Note", "", "Task Note")
+
+	fs.Parse(os.Args[1:])
 
 	return flags
 }
