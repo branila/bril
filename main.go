@@ -9,6 +9,7 @@ import (
 	deleter "github.com/branila/bril/handlers/delete"
 	doer "github.com/branila/bril/handlers/done"
 	lister "github.com/branila/bril/handlers/list"
+	restorer "github.com/branila/bril/handlers/restore"
 	undoer "github.com/branila/bril/handlers/undo"
 	viewer "github.com/branila/bril/handlers/view"
 )
@@ -42,6 +43,9 @@ func main() {
 
 	case "delete":
 		deleter.Delete()
+
+	case "restore":
+		restorer.Delete()
 
 	default:
 		fmt.Println("Unknown command")
