@@ -15,11 +15,6 @@ func Add() {
 		return
 	}
 
-	name := os.Args[2]
-
-	// Remove non-flag arguments
-	os.Args = os.Args[2:]
-
 	flags := getFlags()
 
 	tag := getTag(flags.Tag)
@@ -43,7 +38,7 @@ func Add() {
 
 	task := types.Task{
 		Id:       len(db.GetTasks()),
-		Name:     name,
+		Name:     os.Args[2],
 		Priority: priority,
 		Tag:      tag.Name,
 		Note:     flags.Note,

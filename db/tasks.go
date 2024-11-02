@@ -23,3 +23,9 @@ func CreateTask(t types.Task) {
 
 	SyncDb()
 }
+
+func SetTasks(tasks []types.Task) {
+	db.Tasks = tasks
+
+	SyncDb()
+}

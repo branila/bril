@@ -13,6 +13,8 @@ func TestGetFlags(t *testing.T) {
 	}{
 		{
 			[]string{
+				"bril",
+				"add",
 				"Task name",
 				"-p", "5",
 				"-d", "2021-12-31",
@@ -28,6 +30,8 @@ func TestGetFlags(t *testing.T) {
 		},
 		{
 			[]string{
+				"bril",
+				"add",
 				"Task name",
 			},
 			AddFlags{
@@ -36,6 +40,8 @@ func TestGetFlags(t *testing.T) {
 		},
 		{
 			[]string{
+				"bril",
+				"add",
 				"Task name",
 				"-p", "5",
 				"-d", "2021-12-31",
@@ -49,6 +55,8 @@ func TestGetFlags(t *testing.T) {
 		},
 		{
 			[]string{
+				"bril",
+				"add",
 				"Task name",
 				"-p", "5",
 				"-d", "2021-12-31",
@@ -60,6 +68,8 @@ func TestGetFlags(t *testing.T) {
 		},
 		{
 			[]string{
+				"bril",
+				"add",
 				"Task name",
 				"-p", "5",
 				"-n", "do the hard things",
@@ -72,7 +82,7 @@ func TestGetFlags(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		t.Run(strings.Join(tt.args, ", "), func(t *testing.T) {
+		t.Run(strings.Join(tt.args, " "), func(t *testing.T) {
 			os.Args = tt.args
 
 			got := getFlags()

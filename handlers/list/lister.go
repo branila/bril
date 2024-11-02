@@ -2,13 +2,9 @@ package lister
 
 import (
 	"fmt"
-	"os"
 )
 
 func List() {
-	// Remove non-flag arguments
-	os.Args = os.Args[1:]
-
 	flags := getFlags()
 
 	filteredTasks := getFilteredTasks(flags)

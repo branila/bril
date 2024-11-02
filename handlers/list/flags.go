@@ -2,6 +2,7 @@ package lister
 
 import (
 	"flag"
+	"os"
 )
 
 type ListFlags struct {
@@ -15,22 +16,24 @@ type ListFlags struct {
 func getFlags() ListFlags {
 	var flags ListFlags
 
-	flag.BoolVar(&flags.All, "a", false, "Show all tasks")
-	flag.BoolVar(&flags.All, "all", false, "Show all tasks")
+	fs := flag.NewFlagSet("listFlags", flag.ExitOnError)
 
-	flag.BoolVar(&flags.Done, "d", false, "Show done tasks")
-	flag.BoolVar(&flags.Done, "done", false, "Show done tasks")
+	fs.BoolVar(&flags.All, "a", false, "Show all tasks")
+	fs.BoolVar(&flags.All, "all", false, "Show all tasks")
 
-	flag.StringVar(&flags.Tag, "t", "", "Show tasks with a specific tag")
-	flag.StringVar(&flags.Tag, "tag", "", "Show tasks with a specific tag")
+	fs.BoolVar(&flags.Done, "d", false, "Show done tasks")
+	fs.BoolVar(&flags.Done, "done", false, "Show done tasks")
 
-	flag.BoolVar(&flags.Expired, "e", false, "Only show expired tasks")
-	flag.BoolVar(&flags.Expired, "expired", false, "Only show expired tasks")
+	fs.StringVar(&flags.Tag, "t", "", "Show tasks with a specific tag")
+	fs.StringVar(&flags.Tag, "tag", "", "Show tasks with a specific tag")
 
-	flag.BoolVar(&flags.Deleted, "del", false, "Show deleted tasks")
-	flag.BoolVar(&flags.Deleted, "deleted", false, "Show deleted tasks")
+	fs.BoolVar(&flags.Expired, "e", false, "Only show expired tasks")
+	fs.BoolVar(&flags.Expired, "expired", false, "Only show expired tasks")
 
-	flag.Parse()
+	fs.BoolVar(&flags.Deleted, "del", false, "Show deleted tasks")
+	fs.BoolVar(&flags.Deleted, "deleted", false, "Show deleted tasks")
+
+	fs.Parse(os.Args[2:])
 
 	return flags
 }

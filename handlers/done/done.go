@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/branila/bril/db"
 )
@@ -34,6 +35,7 @@ func Done() {
 
 	tasks[id].Done = true
 	tasks[id].Deleted = false
+	tasks[id].Completion = time.Now()
 
 	db.SyncDb()
 

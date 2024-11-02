@@ -36,7 +36,7 @@ func getFlags() AddFlags {
 	fs.StringVar(&flags.Note, "n", "", "Task Note")
 	fs.StringVar(&flags.Note, "Note", "", "Task Note")
 
-	fs.Parse(os.Args[1:])
+	fs.Parse(os.Args[3:])
 
 	return flags
 }
