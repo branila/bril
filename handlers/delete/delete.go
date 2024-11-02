@@ -9,19 +9,18 @@ import (
 )
 
 func Delete() {
-
 	if len(os.Args) < 3 {
 		fmt.Println("Usage: bril delete <task id>")
 		return
 	}
 
 	id, err := strconv.Atoi(os.Args[2])
-	if err != nil {
+	if err != nil || id < 0 {
 		fmt.Printf("'%s' is not a valid task id\n", os.Args[2])
 		return
 	}
 
-	if id < 0 || id >= len(db.GetTasks()) {
+	if id >= len(db.GetTasks()) {
 		fmt.Printf("Task %d not found", id)
 		return
 	}
@@ -29,7 +28,7 @@ func Delete() {
 	tasks := db.GetTasks()
 
 	if tasks[id].Deleted {
-		fmt.Printf("Task %d already deleted\n", id)
+		fmt.Printf("Task %d has already been deleted\n", id)
 		return
 	}
 

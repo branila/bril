@@ -16,18 +16,18 @@ var db = types.Db{}
 func SyncDb() {
 	jsonData, err := json.MarshalIndent(db, "", "  ")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error marshalling data: ", err)
 	}
 
 	wd, err := os.Getwd()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error getting working directory: %v", err)
 	}
 
 	dbPath := filepath.Join(wd, dbName)
 
 	err = os.WriteFile(dbPath, jsonData, 0644)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error writing to file: %v", err)
 	}
 }
