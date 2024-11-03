@@ -9,6 +9,7 @@ import (
 	deleter "github.com/branila/bril/handlers/delete"
 	doer "github.com/branila/bril/handlers/done"
 	lister "github.com/branila/bril/handlers/list"
+	reminder "github.com/branila/bril/handlers/remind"
 	restorer "github.com/branila/bril/handlers/restore"
 	undoer "github.com/branila/bril/handlers/undo"
 	viewer "github.com/branila/bril/handlers/view"
@@ -16,9 +17,6 @@ import (
 
 func main() {
 	db.Init()
-
-	fmt.Println()
-	defer fmt.Println()
 
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: bril <command> [args]")
@@ -46,6 +44,9 @@ func main() {
 
 	case "restore":
 		restorer.Delete()
+
+	case "remind":
+		reminder.Remind()
 
 	default:
 		fmt.Println("Unknown command")
