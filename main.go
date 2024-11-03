@@ -18,6 +18,9 @@ import (
 func main() {
 	db.Init()
 
+	fmt.Println()
+	defer fmt.Println()
+
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: bril <command> [args]")
 		return
