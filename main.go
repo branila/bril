@@ -30,6 +30,8 @@ func main() {
 	case "add":
 		adder.Add()
 
+	case "ls":
+		fallthrough
 	case "list":
 		lister.List()
 
@@ -42,6 +44,8 @@ func main() {
 	case "undo":
 		undoer.Undo()
 
+	case "rm":
+		fallthrough
 	case "delete":
 		deleter.Delete()
 
