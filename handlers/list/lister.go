@@ -10,7 +10,7 @@ func List() {
 	filteredTasks := getFilteredTasks(flags)
 
 	if len(filteredTasks) == 0 {
-		fmt.Println("No tasks found matching the criteria")
+		fmt.Println("No tasks found")
 		return
 	}
 
