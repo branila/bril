@@ -61,6 +61,26 @@ func TestGetFlags(t *testing.T) {
 				Deleted: true,
 			},
 		},
+		{
+			[]string{
+				"bril",
+				"list",
+				"-s", "priority",
+			},
+			ListFlags{
+				Sort: "priority",
+			},
+		},
+		{
+			[]string{
+				"bril",
+				"list",
+				"-s", "deadline",
+			},
+			ListFlags{
+				Sort: "deadline",
+			},
+		},
 	}
 
 	for _, tt := range tests {

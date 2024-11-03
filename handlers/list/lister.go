@@ -14,9 +14,15 @@ func List() {
 		return
 	}
 
+	sortedTasks, err := sortTasks(filteredTasks, flags.Sort)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	fmt.Print("Task list:\n\n")
 
-	for _, task := range filteredTasks {
+	for _, task := range sortedTasks {
 		PrintTaskBrief(task)
 	}
 }

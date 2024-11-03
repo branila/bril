@@ -1,6 +1,7 @@
 package lister
 
 import (
+	"os"
 	"reflect"
 	"strconv"
 	"testing"
@@ -11,9 +12,6 @@ import (
 )
 
 func TestGetFilteredTasks(t *testing.T) {
-	tasksBackup := db.GetTasks()
-	defer db.SetTasks(tasksBackup)
-
 	prototypeTasks := []types.Task{
 		{
 			Id:       1,
@@ -155,5 +153,10 @@ func TestGetFilteredTasks(t *testing.T) {
 				}
 			}
 		})
+	}
+
+	err := os.Remove("./bril.json")
+	if err != nil {
+		t.Error(err)
 	}
 }

@@ -8,6 +8,80 @@ import (
 	"github.com/branila/bril/types"
 )
 
+func TestNoFilteringFlagSet(t *testing.T) {
+	tests := []struct {
+		flags ListFlags
+		want  bool
+	}{
+		{
+			ListFlags{},
+			true,
+		},
+		{
+			ListFlags{
+				All: true,
+			},
+			false,
+		},
+		{
+			ListFlags{
+				Done: true,
+			},
+			false,
+		},
+		{
+			ListFlags{
+				Deleted: true,
+			},
+			false,
+		},
+		{
+			ListFlags{
+				Expired: true,
+			},
+			false,
+		},
+		{
+			ListFlags{
+				Tag: "work",
+			},
+			false,
+		},
+		{
+			ListFlags{
+				All:     true,
+				Done:    true,
+				Deleted: true,
+				Expired: true,
+				Tag:     "work",
+			},
+			false,
+		},
+		{
+			ListFlags{
+				Sort: "name",
+			},
+			true,
+		},
+		{
+			ListFlags{
+				All:  true,
+				Sort: "date",
+			},
+			false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(fmt.Sprintf("flags: %v", tt.flags), func(t *testing.T) {
+			got := noFilteringFlagSet(tt.flags)
+			if got != tt.want {
+				t.Errorf("noFilteringFlagSet(%v) = %v; want %v", tt.flags, got, tt.want)
+			}
+		})
+	}
+}
+
 func TestShouldPrint(t *testing.T) {
 	now := time.Now()
 

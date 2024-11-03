@@ -3,6 +3,8 @@ package lister
 import (
 	"flag"
 	"os"
+
+	"github.com/branila/bril/utils"
 )
 
 type ListFlags struct {
@@ -11,6 +13,11 @@ type ListFlags struct {
 	Tag     string
 	Expired bool
 	Deleted bool
+	Sort    string
+}
+
+func (f ListFlags) String() string {
+	return utils.PrettifyObject(f)
 }
 
 func getFlags() ListFlags {
@@ -32,6 +39,9 @@ func getFlags() ListFlags {
 
 	fs.BoolVar(&flags.Deleted, "del", false, "Show deleted tasks")
 	fs.BoolVar(&flags.Deleted, "deleted", false, "Show deleted tasks")
+
+	fs.StringVar(&flags.Sort, "s", "", "Sort tasks by a specific field")
+	fs.StringVar(&flags.Sort, "sort", "", "Sort tasks by a specific field")
 
 	fs.Parse(os.Args[2:])
 
