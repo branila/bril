@@ -7,12 +7,9 @@ import (
 	"github.com/branila/bril/types"
 )
 
-func noFilteringFlagSet(flags ListFlags) bool {
-	return !flags.All && !flags.Done && !flags.Deleted && !flags.Expired && flags.Tag == ""
-}
-
 func shouldPrint(task types.Task, flags ListFlags) bool {
-	if noFilteringFlagSet(flags) {
+	// Default behavior
+	if !flags.All && !flags.Done && !flags.Deleted && !flags.Expired && flags.Tag == "" {
 		return !task.Done && !task.Deleted
 	}
 
@@ -30,10 +27,6 @@ func shouldPrint(task types.Task, flags ListFlags) bool {
 
 	if flags.Tag != "" && !strings.EqualFold(task.Tag, flags.Tag) {
 		return false
-	}
-
-	if flags.All {
-		return true
 	}
 
 	return true

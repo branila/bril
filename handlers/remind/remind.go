@@ -24,15 +24,7 @@ func Remind() {
 		return
 	}
 
-	timeInput := os.Args[3]
-	var deadline time.Time
-
-	if utils.IsDurationFormat(timeInput) {
-		deadline, err = utils.ParseDuration(timeInput)
-	} else {
-		deadline, err = utils.ParseDate(timeInput)
-	}
-
+	deadline, err := parseDeadline(os.Args[3])
 	if err != nil {
 		fmt.Println("Invalid time format")
 		return
@@ -50,45 +42,55 @@ func Remind() {
 		return
 	}
 
-	countdown := int(timeToDeadline.Seconds())
-	notifyCmd := fmt.Sprintf("sleep %d && notify-send 'Task %d' '%s'", countdown, id, task.Name)
-	cmd := exec.Command("bash", "-c", notifyCmd)
-
-	if err = cmd.Start(); err != nil {
-		fmt.Println("Error starting command:", err)
+	err = startReminder(timeToDeadline, id, task.Name)
+	if err != nil {
+		fmt.Println("Failed to start reminder")
 		return
 	}
 
 	fmt.Printf("Reminding task %d in %s\n", id, formatDuration(timeToDeadline))
 }
 
+func parseDeadline(timeInput string) (time.Time, error) {
+	if utils.IsDurationFormat(timeInput) {
+		return utils.ParseDuration(timeInput)
+	}
+	return utils.ParseDate(timeInput)
+}
+
+func startReminder(duration time.Duration, id int, taskName string) error {
+	seconds := int(duration.Seconds())
+	notifyCmd := fmt.Sprintf("sleep %d && notify-send 'Task %d' '%s'", seconds, id, taskName)
+	cmd := exec.Command("bash", "-c", notifyCmd)
+	return cmd.Start()
+}
+
 func formatDuration(d time.Duration) string {
-	seconds := int(d.Seconds()) % 60
-	minutes := int(d.Minutes()) % 60
-	hours := int(d.Hours()) % 24
-	days := int(d.Hours() / 24)
-
-	parts := []string{}
-
-	if days > 0 {
-		parts = append(parts, fmt.Sprintf("%d days", days))
+	units := []struct {
+		value int
+		label string
+	}{
+		{int(d.Hours()) / 24, "days"},
+		{int(d.Hours()) % 24, "hours"},
+		{int(d.Minutes()) % 60, "minutes"},
+		{int(d.Seconds()) % 60, "seconds"},
 	}
 
-	if hours > 0 {
-		parts = append(parts, fmt.Sprintf("%d hours", hours))
+	var parts []string
+
+	for _, u := range units {
+		if u.value > 0 {
+			parts = append(parts, fmt.Sprintf("%d %s", u.value, u.label))
+		}
 	}
 
-	if minutes > 0 {
-		parts = append(parts, fmt.Sprintf("%d minutes", minutes))
+	if len(parts) == 0 {
+		return "0 seconds"
 	}
 
-	if seconds > 0 || len(parts) == 0 { // Aggiungiamo i secondi anche se è zero per evitare una stringa vuota
-		parts = append(parts, fmt.Sprintf("%d seconds", seconds))
+	if len(parts) == 1 {
+		return parts[0]
 	}
 
-	if len(parts) > 1 {
-		return strings.Join(parts[:len(parts)-1], ", ") + " and " + parts[len(parts)-1]
-	}
-
-	return parts[0]
+	return strings.Join(parts[:len(parts)-1], ", ") + " and " + parts[len(parts)-1]
 }
