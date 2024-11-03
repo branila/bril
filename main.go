@@ -38,6 +38,8 @@ func main() {
 	case "view":
 		viewer.View()
 
+	case "do":
+		fallthrough
 	case "done":
 		doer.Done()
 
