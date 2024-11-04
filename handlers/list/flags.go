@@ -2,7 +2,6 @@ package lister
 
 import (
 	"flag"
-	"os"
 
 	"github.com/branila/bril/utils"
 )
@@ -20,7 +19,7 @@ func (f ListFlags) String() string {
 	return utils.PrettifyObject(f)
 }
 
-func getFlags() ListFlags {
+func GetFlags(args []string) ListFlags {
 	var flags ListFlags
 
 	fs := flag.NewFlagSet("listFlags", flag.ExitOnError)
@@ -43,7 +42,7 @@ func getFlags() ListFlags {
 	fs.StringVar(&flags.Sort, "s", "", "Sort tasks by a specific field")
 	fs.StringVar(&flags.Sort, "sort", "", "Sort tasks by a specific field")
 
-	fs.Parse(os.Args[2:])
+	fs.Parse(args)
 
 	return flags
 }

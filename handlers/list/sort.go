@@ -7,7 +7,7 @@ import (
 	"github.com/branila/bril/types"
 )
 
-func sortTasks(tasks []types.Task, sortFlag string) ([]types.Task, error) {
+func SortTsks(tasks []types.Task, sortFlag string) ([]types.Task, error) {
 	if sortFlag == "" {
 		return tasks, nil
 	}

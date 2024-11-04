@@ -5,7 +5,7 @@ import (
 	"github.com/branila/bril/types"
 )
 
-func getFilteredTasks(flags ListFlags) []types.Task {
+func GetFilteredTasks(flags ListFlags) []types.Task {
 	tasks := db.GetTasks()
 
 	filteredTasks := []types.Task{}

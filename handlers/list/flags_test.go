@@ -87,7 +87,7 @@ func TestGetFlags(t *testing.T) {
 		t.Run(strings.Join(tt.args, " "), func(t *testing.T) {
 			os.Args = tt.args
 
-			got := getFlags()
+			got := GetFlags(tt.args[2:])
 
 			if got != tt.want {
 				t.Errorf("got %v, want %v", got, tt.want)

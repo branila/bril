@@ -8,6 +8,7 @@ import (
 	adder "github.com/branila/bril/handlers/add"
 	deleter "github.com/branila/bril/handlers/delete"
 	doer "github.com/branila/bril/handlers/done"
+	finder "github.com/branila/bril/handlers/find"
 	lister "github.com/branila/bril/handlers/list"
 	reminder "github.com/branila/bril/handlers/remind"
 	restorer "github.com/branila/bril/handlers/restore"
@@ -50,6 +51,9 @@ func main() {
 
 	case "remind":
 		reminder.Remind()
+
+	case "find":
+		finder.Find()
 
 	default:
 		fmt.Println("Unknown command")

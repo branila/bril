@@ -2,19 +2,20 @@ package lister
 
 import (
 	"fmt"
+	"os"
 )
 
 func List() {
-	flags := getFlags()
+	flags := GetFlags(os.Args[2:])
 
-	filteredTasks := getFilteredTasks(flags)
+	filteredTasks := GetFilteredTasks(flags)
 
 	if len(filteredTasks) == 0 {
 		fmt.Println("No tasks found")
 		return
 	}
 
-	sortedTasks, err := sortTasks(filteredTasks, flags.Sort)
+	sortedTasks, err := SortTsks(filteredTasks, flags.Sort)
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -138,7 +138,7 @@ func TestGetFilteredTasks(t *testing.T) {
 
 	for i, tt := range tests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
-			got := getFilteredTasks(tt.flags)
+			got := GetFilteredTasks(tt.flags)
 
 			if len(got) != len(tt.want) {
 				t.Errorf("got %v, want %v", got, tt.want)
