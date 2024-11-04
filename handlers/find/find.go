@@ -43,7 +43,7 @@ func Find() {
 }
 
 func searchTasks(tasks []types.Task, query string) []types.Task {
-	query = strings.ToLower(os.Args[2])
+	query = strings.ToLower(query)
 
 	foundTasks := []types.Task{}
 
