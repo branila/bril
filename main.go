@@ -30,9 +30,7 @@ func main() {
 	case "add":
 		adder.Add()
 
-	case "ls":
-		fallthrough
-	case "list":
+	case "ls", "list":
 		lister.List()
 
 	case "view":
