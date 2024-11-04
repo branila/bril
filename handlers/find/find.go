@@ -10,6 +10,8 @@ import (
 )
 
 func Find() {
+	flags := lister.GetFlags(os.Args[3:])
+
 	if len(os.Args) < 3 {
 		fmt.Println("Usage: bril find <query>")
 		return
@@ -17,11 +19,20 @@ func Find() {
 
 	query := os.Args[2]
 
-	tasks, err := searchTasks(query)
+	tasks := lister.GetFilteredTasks(flags)
+
+	if len(tasks) == 0 {
+		fmt.Println("No tasks found")
+		return
+	}
+
+	tasks, err := lister.SortTasks(tasks, flags.Sort)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
+	tasks = searchTasks(tasks, query)
 
 	if len(tasks) == 0 {
 		fmt.Printf("No tasks found for query %q\n", query)
@@ -31,20 +42,12 @@ func Find() {
 	printTasks(tasks, query)
 }
 
-func searchTasks(query string) ([]types.Task, error) {
+func searchTasks(tasks []types.Task, query string) []types.Task {
 	query = strings.ToLower(os.Args[2])
-
-	flags := lister.GetFlags(os.Args[3:])
-	tasks := lister.GetFilteredTasks(flags)
-
-	sortedTasks, err := lister.SortTsks(tasks, flags.Sort)
-	if err != nil {
-		return nil, err
-	}
 
 	foundTasks := []types.Task{}
 
-	for _, task := range sortedTasks {
+	for _, task := range tasks {
 		taskName := strings.ToLower(task.Name)
 
 		if strings.Contains(taskName, query) {
@@ -52,7 +55,7 @@ func searchTasks(query string) ([]types.Task, error) {
 		}
 	}
 
-	return foundTasks, nil
+	return foundTasks
 }
 
 func printTasks(tasks []types.Task, query string) {

@@ -15,7 +15,7 @@ func List() {
 		return
 	}
 
-	sortedTasks, err := SortTsks(filteredTasks, flags.Sort)
+	sortedTasks, err := SortTasks(filteredTasks, flags.Sort)
 	if err != nil {
 		fmt.Println(err)
 		return
