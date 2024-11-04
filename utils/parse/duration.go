@@ -7,13 +7,13 @@ import (
 	"time"
 )
 
-func IsDurationFormat(due string) bool {
+func IsDurationFormat(inputDeadline string) bool {
 	durationRegex := regexp.MustCompile(`^(?:\d+[yMwdhms])+$`)
 
-	return durationRegex.MatchString(due)
+	return durationRegex.MatchString(inputDeadline)
 }
 
-func ParseDuration(due string) (time.Time, error) {
+func ParseDuration(inputDeadline string) (time.Time, error) {
 	now := time.Now()
 	durationMap := map[string]int{
 		"y": 0, "M": 0, "w": 0, "d": 0,
@@ -21,7 +21,7 @@ func ParseDuration(due string) (time.Time, error) {
 	}
 
 	re := regexp.MustCompile(`(\d+)([yMwdhms])`)
-	matches := re.FindAllStringSubmatch(due, -1)
+	matches := re.FindAllStringSubmatch(inputDeadline, -1)
 
 	if len(matches) == 0 {
 		return time.Time{}, fmt.Errorf("no valid duration found")

@@ -51,11 +51,16 @@ func Remind() {
 	fmt.Printf("Reminding task %d in %s\n", id, formatDuration(timeToDeadline))
 }
 
-func parseDeadline(timeInput string) (time.Time, error) {
-	if utils.IsDurationFormat(timeInput) {
-		return utils.ParseDuration(timeInput)
+func parseDeadline(deadline string) (time.Time, error) {
+	if utils.IsDurationFormat(deadline) {
+		return utils.ParseDuration(deadline)
 	}
-	return utils.ParseDate(timeInput)
+
+	if utils.IsRelativeFormat(deadline) {
+		return utils.ParseRelativeFormat(deadline)
+	}
+
+	return utils.ParseDate(deadline)
 }
 
 func startReminder(duration time.Duration, id int, taskName string) error {

@@ -6,13 +6,13 @@ import (
 	"time"
 )
 
-func ParseDate(due string) (time.Time, error) {
-	layout, found := findDateFormat(due)
+func ParseDate(inputDeadline string) (time.Time, error) {
+	layout, found := findDateFormat(inputDeadline)
 	if !found {
 		return time.Time{}, fmt.Errorf("Unknown date format")
 	}
 
-	deadline, err := time.ParseInLocation(layout, due, time.Local)
+	deadline, err := time.ParseInLocation(layout, inputDeadline, time.Local)
 	if err != nil {
 		return time.Time{}, fmt.Errorf("Failed to parse date")
 	}
@@ -28,7 +28,7 @@ func ParseDate(due string) (time.Time, error) {
 	return deadline, nil
 }
 
-func findDateFormat(due string) (string, bool) {
+func findDateFormat(inputDeadline string) (string, bool) {
 	formats := map[string]string{
 		`^\d{2}/\d{2}/\d{4}-\d{2}:\d{2}$`: "02/01/2006-15:04",
 		`^\d{2}:\d{2}-\d{2}/\d{2}/\d{4}$`: "15:04-02/01/2006",
@@ -40,7 +40,7 @@ func findDateFormat(due string) (string, bool) {
 	}
 
 	for pattern, layout := range formats {
-		if matched, _ := regexp.MatchString(pattern, due); matched {
+		if matched, _ := regexp.MatchString(pattern, inputDeadline); matched {
 			return layout, true
 		}
 	}

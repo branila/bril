@@ -1,26 +1,23 @@
 package adder
 
 import (
-	"strings"
 	"time"
 
 	utils "github.com/branila/bril/utils/parse"
 )
 
-func getDeadline(due string) (time.Time, error) {
-	if due == "" {
+func getDeadline(deadline string) (time.Time, error) {
+	if deadline == "" {
 		return time.Time{}, nil
 	}
-	switch strings.ToLower(due) {
-	case "today":
-		return time.Now().Truncate(24 * time.Hour), nil
-	case "tomorrow":
-		return time.Now().Truncate(24 * time.Hour).Add(24 * time.Hour), nil
+
+	if utils.IsRelativeFormat(deadline) {
+		return utils.ParseRelativeFormat(deadline)
 	}
 
-	if utils.IsDurationFormat(due) {
-		return utils.ParseDuration(due)
+	if utils.IsDurationFormat(deadline) {
+		return utils.ParseDuration(deadline)
 	}
 
-	return utils.ParseDate(due)
+	return utils.ParseDate(deadline)
 }
