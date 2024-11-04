@@ -2,7 +2,7 @@ package db
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -13,21 +13,28 @@ const dbName = "bril.json"
 
 var db = types.Db{}
 
-func SyncDb() {
+func SyncDb() error {
 	jsonData, err := json.MarshalIndent(db, "", "  ")
 	if err != nil {
-		log.Fatal("Error marshalling data: ", err)
+		return fmt.Errorf("Error marshalling data: %e", err)
 	}
 
 	wd, err := os.Getwd()
 	if err != nil {
-		log.Fatalf("Error getting working directory: %v", err)
+		return fmt.Errorf("Error getting working directory: %e", err)
 	}
 
 	dbPath := filepath.Join(wd, dbName)
 
 	err = os.WriteFile(dbPath, jsonData, 0644)
 	if err != nil {
-		log.Fatalf("Error writing to file: %v", err)
+		return fmt.Errorf("Error writing to file: %v", err)
 	}
+
+	return nil
+}
+
+func Reset() error {
+	db = types.Db{}
+	return SyncDb()
 }

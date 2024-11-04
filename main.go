@@ -11,6 +11,7 @@ import (
 	finder "github.com/branila/bril/handlers/find"
 	lister "github.com/branila/bril/handlers/list"
 	reminder "github.com/branila/bril/handlers/remind"
+	resetter "github.com/branila/bril/handlers/reset"
 	restorer "github.com/branila/bril/handlers/restore"
 	undoer "github.com/branila/bril/handlers/undo"
 	viewer "github.com/branila/bril/handlers/view"
@@ -54,6 +55,9 @@ func main() {
 
 	case "find":
 		finder.Find()
+
+	case "reset":
+		resetter.Reset()
 
 	default:
 		fmt.Println("Unknown command")

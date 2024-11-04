@@ -1,6 +1,8 @@
 package db
 
 import (
+	"fmt"
+
 	"github.com/branila/bril/types"
 )
 
@@ -21,11 +23,15 @@ func GetTask(id int) (types.Task, bool) {
 func CreateTask(t types.Task) {
 	db.Tasks = append(db.Tasks, t)
 
-	SyncDb()
+	if err := SyncDb(); err != nil {
+		fmt.Printf("Error creating task (%q)\n", err)
+	}
 }
 
 func SetTasks(tasks []types.Task) {
 	db.Tasks = tasks
 
-	SyncDb()
+	if err := SyncDb(); err != nil {
+		fmt.Printf("Error setting tasks (%q)\n", err)
+	}
 }

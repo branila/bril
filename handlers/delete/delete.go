@@ -34,7 +34,10 @@ func Delete() {
 
 	tasks[id].Deleted = true
 
-	db.SyncDb()
+	if err := db.SyncDb(); err != nil {
+		fmt.Printf("Error deleting task (%q)\n", err)
+		return
+	}
 
 	fmt.Printf("Task %d marked as deleted\n", id)
 }

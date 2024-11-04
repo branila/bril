@@ -37,7 +37,10 @@ func Done() {
 	tasks[id].Deleted = false
 	tasks[id].Completion = time.Now()
 
-	db.SyncDb()
+	if err := db.SyncDb(); err != nil {
+		fmt.Printf("Error marking task as done (%q)\n", err)
+		return
+	}
 
 	fmt.Printf("Task %d marked as done\n", id)
 }
