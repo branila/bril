@@ -38,17 +38,13 @@ func main() {
 	case "view":
 		viewer.View()
 
-	case "do":
-		fallthrough
-	case "done":
+	case "do", "done":
 		doer.Done()
 
 	case "undo":
 		undoer.Undo()
 
-	case "rm":
-		fallthrough
-	case "delete":
+	case "rm", "delete":
 		deleter.Delete()
 
 	case "restore":
