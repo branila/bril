@@ -14,6 +14,7 @@ import (
 	reminder "github.com/branila/bril/handlers/remind"
 	resetter "github.com/branila/bril/handlers/reset"
 	restorer "github.com/branila/bril/handlers/restore"
+	tags "github.com/branila/bril/handlers/tags"
 	undoer "github.com/branila/bril/handlers/undo"
 	viewer "github.com/branila/bril/handlers/view"
 )
@@ -62,6 +63,9 @@ func main() {
 
 	case "edit":
 		modifier.Edit()
+
+	case "tag":
+		tags.Handle()
 
 	default:
 		fmt.Println("Unknown command")
