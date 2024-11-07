@@ -29,7 +29,7 @@ func TestIsRelativeFormat(t *testing.T) {
 		{"next saturday", true},
 		{"sunday", true},
 		{"next sunday", true},
-		// Casi negativi
+		// Negative cases
 		{"yesterday", false},
 		{"next year 2024", false},
 		{"weekend", false},
@@ -49,16 +49,18 @@ func TestIsRelativeFormat(t *testing.T) {
 }
 
 func TestParseRelativeFormat(t *testing.T) {
+	now := time.Now().Truncate(24 * time.Hour)
+
 	tests := []struct {
 		input         string
 		expected      time.Time
 		expectedError string
 	}{
-		{"today", time.Now().Truncate(24 * time.Hour), ""},
-		{"tomorrow", time.Now().Truncate(24 * time.Hour).Add(24 * time.Hour), ""},
-		{"next week", time.Now().Truncate(24 * time.Hour).Add(7 * 24 * time.Hour), ""},
-		{"next month", time.Now().Truncate(24*time.Hour).AddDate(0, 1, 0), ""},
-		{"next year", time.Now().Truncate(24*time.Hour).AddDate(1, 0, 0), ""},
+		{"today", now.AddDate(0, 0, 1), ""},
+		{"tomorrow", now.AddDate(0, 0, 2), ""},
+		{"next week", now.AddDate(0, 0, int(time.Sunday-now.Weekday())+7), ""},
+		{"next month", time.Date(now.Year(), now.Month()+2, 1, 0, 0, 0, 0, now.Location()).AddDate(0, 0, -1), ""},
+		{"next year", time.Date(now.Year()+2, 1, 1, 0, 0, 0, 0, now.Location()).AddDate(0, 0, -1), ""},
 		{"monday", getWeekday(time.Monday), ""},
 		{"next monday", getWeekday(time.Monday).AddDate(0, 0, 7), ""},
 		{"tuesday", getWeekday(time.Tuesday), ""},
@@ -73,7 +75,7 @@ func TestParseRelativeFormat(t *testing.T) {
 		{"next saturday", getWeekday(time.Saturday).AddDate(0, 0, 7), ""},
 		{"sunday", getWeekday(time.Sunday), ""},
 		{"next sunday", getWeekday(time.Sunday).AddDate(0, 0, 7), ""},
-		// Casi negativi
+		// Negative cases
 		{"yesterday", time.Time{}, "Invalid relative format"},
 		{"next year 2024", time.Time{}, "Invalid relative format"},
 		{"weekend", time.Time{}, "Invalid relative format"},
@@ -86,17 +88,15 @@ func TestParseRelativeFormat(t *testing.T) {
 		t.Run(test.input, func(t *testing.T) {
 			result, err := ParseRelativeFormat(test.input)
 
-			if err != nil {
-				if err.Error() != test.expectedError {
-					t.Errorf("expected error message: %v, got: %v", test.expectedError, err.Error())
-				}
+			if err != nil && err.Error() != test.expectedError {
+				t.Errorf("expected error message: %v, got: %v", test.expectedError, err.Error())
 			}
 
-			if test.expectedError != "" {
+			if err == nil && test.expectedError != "" {
 				t.Errorf("expected error message: %v, but got none", test.expectedError)
 			}
 
-			if !result.Truncate(24 * time.Hour).Equal(test.expected.Truncate(24 * time.Hour)) {
+			if test.expectedError == "" && !result.Equal(test.expected) {
 				t.Errorf("expected %v, got %v", test.expected, result)
 			}
 		})
@@ -124,7 +124,7 @@ func TestGetWeekday(t *testing.T) {
 				daysUntil += 7
 			}
 
-			want := now.Truncate(24*time.Hour).AddDate(0, 0, daysUntil)
+			want := now.AddDate(0, 0, daysUntil)
 
 			got := getWeekday(weekday).Truncate(24 * time.Hour)
 

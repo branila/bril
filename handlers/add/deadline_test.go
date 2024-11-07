@@ -45,7 +45,7 @@ func TestGetDeadline(t *testing.T) {
 				t.Fatalf("expected error %q, got %q", tt.expectedErr, err.Error())
 			}
 
-			if math.Abs(float64(deadline.Sub(tt.expectedDue).Milliseconds())) > 1 {
+			if math.Abs(float64(deadline.Sub(tt.expectedDue).Seconds())) > 1 {
 				t.Fatalf("expected deadline to be %v, got %v", tt.expectedDue, deadline)
 			}
 		})

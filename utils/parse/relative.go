@@ -34,11 +34,13 @@ func ParseRelativeFormat(inputDeadline string) (time.Time, error) {
 	now := time.Now().Truncate(24 * time.Hour)
 
 	relativeTime := map[string]func() time.Time{
-		"today":      func() time.Time { return now },
-		"tomorrow":   func() time.Time { return now.Add(24 * time.Hour) },
-		"next week":  func() time.Time { return now.Add(7 * 24 * time.Hour) },
-		"next month": func() time.Time { return now.AddDate(0, 1, 0) },
-		"next year":  func() time.Time { return now.AddDate(1, 0, 0) },
+		"today":     func() time.Time { return now.AddDate(0, 0, 1) },
+		"tomorrow":  func() time.Time { return now.AddDate(0, 0, 2) },
+		"next week": func() time.Time { return now.AddDate(0, 0, int(time.Sunday-now.Weekday())+7).Truncate(24 * time.Hour) },
+		"next month": func() time.Time {
+			return time.Date(now.Year(), now.Month()+2, 1, 0, 0, 0, 0, now.Location()).AddDate(0, 0, -1)
+		},
+		"next year": func() time.Time { return time.Date(now.Year()+2, 1, 1, 0, 0, 0, 0, now.Location()).AddDate(0, 0, -1) },
 	}
 
 	weekdays := []time.Weekday{
@@ -66,12 +68,12 @@ func ParseRelativeFormat(inputDeadline string) (time.Time, error) {
 }
 
 func getWeekday(weekday time.Weekday) time.Time {
-	now := time.Now()
+	now := time.Now().Truncate(24 * time.Hour)
 	daysUntil := int(weekday - now.Weekday())
 
 	if daysUntil <= 0 {
 		daysUntil += 7
 	}
 
-	return now.Truncate(24*time.Hour).AddDate(0, 0, daysUntil)
+	return now.AddDate(0, 0, daysUntil)
 }
