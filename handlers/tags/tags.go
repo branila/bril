@@ -5,14 +5,6 @@ import (
 	"os"
 )
 
-func List() {
-	fmt.Println("Coming soon")
-}
-
-func Delete() {
-	fmt.Println("Coming soon")
-}
-
 func Handle() {
 	if len(os.Args) < 3 {
 		fmt.Println("Usage: bril tag <command> [args]")
@@ -22,11 +14,17 @@ func Handle() {
 	switch os.Args[2] {
 	case "add":
 		Add()
+
 	case "ls", "list":
 		List()
+
 	case "rm", "delete":
 		Delete()
+
+	case "edit":
+		Edit()
+
 	default:
-		fmt.Println("Unknown command")
+		fmt.Println("Usage: bril tag <command> [args]")
 	}
 }

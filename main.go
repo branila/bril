@@ -64,7 +64,7 @@ func main() {
 	case "edit":
 		modifier.Edit()
 
-	case "tag":
+	case "tags":
 		tags.Handle()
 
 	default:
