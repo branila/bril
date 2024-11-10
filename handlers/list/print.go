@@ -16,9 +16,11 @@ func PrintTaskBrief(task types.Task) {
 	if task.Done {
 		states = append(states, "done")
 	}
+
 	if task.Deleted {
 		states = append(states, "deleted")
 	}
+
 	if time.Now().After(task.Deadline) && !task.Deadline.IsZero() {
 		states = append(states, "expired")
 	}
