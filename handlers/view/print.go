@@ -10,7 +10,7 @@ import (
 func printTask(task types.Task) {
 	lister.PrintTaskBrief(task)
 
-	if task.Priority != 0 {
+	if task.Priority != -1 {
 		fmt.Printf("  - Priority: %d\n", task.Priority)
 	}
 
