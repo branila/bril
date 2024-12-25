@@ -10,12 +10,12 @@ import (
 )
 
 func Find() {
-	flags := lister.GetFlags(os.Args[3:])
-
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: bril find <query>")
+		fmt.Println("Usage: bril find <query> [flags]")
 		return
 	}
+
+	flags := lister.GetFlags(os.Args[3:])
 
 	query := os.Args[2]
 

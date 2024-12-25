@@ -10,11 +10,11 @@ import (
 
 func View() {
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: view show <task_id>")
+		fmt.Println("Usage: bril view <task id>")
 		return
 	}
 
-	taskId, err := strconv.Atoi(os.Args[2])
+	taskId, err := strconv.Atoi(os.Args[3])
 	if err != nil {
 		fmt.Println("Invalid task id")
 		return
