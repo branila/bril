@@ -62,6 +62,8 @@ Adds a task named "Buy groceries" with priority 1, a deadline of December 31, 20
 **Syntax:**
 ```bash
 bril list [--all] [--done] [--tag <string>] [--expired] [--deleted] [--sort <name|priority|deadline>]
+# or 
+bril ls [--all] [--done] [--tag <string>] [--expired] [--deleted] [--sort <name|priority|deadline>]
 ```
 **Examples:**
 ```bash
@@ -88,7 +90,9 @@ Displays detailed information about the task with id 123.
 ### 4. Mark a Task as Done
 **Syntax:**
 ```bash
-bril do <task id> | bril done <task id>
+bril do <task id> 
+# or 
+bril done <task id>
 ```
 **Example:**
 ```bash
@@ -110,7 +114,9 @@ Reverts the task with id 123 back to an incomplete state.
 ### 6. Delete a Task
 **Syntax:**
 ```bash
-bril rm <task id> | bril delete <task id>
+bril rm <task id> 
+# or 
+bril delete <task id>
 ```
 **Example:**
 ```bash
@@ -189,7 +195,7 @@ Edits the task with id 123, changing its name, priority, and deadline.
 ```bash
 bril tag <command> [args]
 ```
-Supported commands:
+Supported tag commands:
 - **Add a Tag:**
   ```bash
   bril tag add <tag> [--priority <int>]
@@ -203,6 +209,8 @@ Supported commands:
 - **Delete a Tag:**
   ```bash
   bril tag delete <tag name>
+  # or 
+  bril tag rm <tag name>
   ```
   **Example:**
   ```bash
@@ -221,6 +229,8 @@ Supported commands:
 - **List Tags:**
   ```bash
   bril tag list
+  # or 
+  bril tag ls
   ```
   **Example:**
   ```bash
