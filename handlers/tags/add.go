@@ -28,7 +28,7 @@ func getAddFlags() AddTagFlags {
 
 func Add() {
 	if len(os.Args) < 4 {
-		fmt.Println("Usage: bril tag add <tag>")
+		fmt.Println("Usage: bril tags add <tag>")
 		return
 	}
 

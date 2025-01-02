@@ -9,7 +9,7 @@ import (
 
 func Delete() {
 	if len(os.Args) < 4 {
-		fmt.Println("Usage: bril tag delete <tag name>")
+		fmt.Println("Usage: bril tags delete <tag name>")
 		return
 	}
 

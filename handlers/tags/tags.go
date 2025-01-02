@@ -7,7 +7,7 @@ import (
 
 func Handle() {
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: bril tag <command> [args]")
+		fmt.Println("Usage: bril tags <command> [args]")
 		return
 	}
 

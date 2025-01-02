@@ -20,6 +20,11 @@ func PrintTagBrief(index int, tag types.Tag) {
 func List() {
 	tags := db.GetTags()
 
+	if len(tags) == 0 {
+		fmt.Println("No tags found")
+		return
+	}
+
 	for i, tag := range tags {
 		PrintTagBrief(i, tag)
 	}
