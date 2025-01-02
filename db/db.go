@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/branila/bril/types"
 )
@@ -18,13 +17,6 @@ func SyncDb() error {
 	if err != nil {
 		return fmt.Errorf("Error marshalling data: %e", err)
 	}
-
-	wd, err := os.Getwd()
-	if err != nil {
-		return fmt.Errorf("Error getting working directory: %e", err)
-	}
-
-	dbPath := filepath.Join(wd, dbName)
 
 	err = os.WriteFile(dbPath, jsonData, 0644)
 	if err != nil {

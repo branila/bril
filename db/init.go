@@ -1,7 +1,9 @@
+// init.go
 package db
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -9,65 +11,50 @@ import (
 	"github.com/branila/bril/types"
 )
 
+var dbPath string
+
 func Init() {
-	raw := getRawDb()
+	dbPath = getDbPath()
 
-	err := json.Unmarshal(raw, &db)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func getRawDb() []byte {
-	wd, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	dbPath := filepath.Join(wd, dbName)
+	fmt.Println("dbPath:", dbPath)
 
 	prepareDb(dbPath)
 
 	content, err := os.ReadFile(dbPath)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Failed to read database:", err)
 	}
 
-	return content
+	err = json.Unmarshal(content, &db)
+	if err != nil {
+		log.Fatal("Failed to parse database:", err)
+	}
+}
+
+func getDbPath() string {
+	userDir, err := os.UserConfigDir()
+	if err != nil {
+		log.Fatal("Failed to get user config directory:", err)
+	}
+
+	brilDir := filepath.Join(userDir, "bril")
+	if err := os.MkdirAll(brilDir, 0755); err != nil {
+		log.Fatal("Failed to create bril directory:", err)
+	}
+
+	return filepath.Join(brilDir, dbName)
 }
 
 func prepareDb(path string) {
-	if !dbExists(path) {
-		file := createDb(path)
-		defer file.Close()
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		db := types.Db{}
+		jsonData, err := json.Marshal(db)
+		if err != nil {
+			log.Fatal("Failed to create empty database:", err)
+		}
 
-		setDefault(file)
-	}
-}
-
-func dbExists(path string) bool {
-	_, err := os.Stat(path)
-
-	return !os.IsNotExist(err)
-}
-
-func createDb(path string) *os.File {
-	file, err := os.Create(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return file
-}
-
-func setDefault(file *os.File) {
-	jsonData, err := json.Marshal(types.Db{})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	_, err = file.WriteString(string(jsonData))
-	if err != nil {
-		log.Fatal(err)
+		if err := os.WriteFile(path, jsonData, 0644); err != nil {
+			log.Fatal("Failed to write empty database:", err)
+		}
 	}
 }
