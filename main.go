@@ -26,7 +26,7 @@ func main() {
 	defer fmt.Println()
 
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: bril <command> [args]")
+		fmt.Println("Usage: bril <command> [args]\n\nDocs: https://github.com/branila/bril/README.md")
 		return
 	}
 

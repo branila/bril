@@ -19,30 +19,109 @@ Bril is perfect for anyone who:
 - **Future-proof**: Planned features include cloud database integration and a Telegram bot interface.
 
 ## Installation
-Currently, the best way to install Bril is to clone the repository, compile the source code, and place the executable in a directory accessible from your terminal. Here’s how:
 
-```bash
-# Clone the repository
-git clone https://github.com/branila/bril.git
-cd bril
+### Prerequisites
 
-# Build the project
-go build -o bril
+Before installing Bril, ensure you have:
+- Go installed on your system (latest version)
+- Git for cloning the repository
+- Appropriate system permissions for installing executables
 
-# Move the executable to a directory in your PATH
-sudo mv bril /usr/local/share/
+### Installation Steps
 
-# Ensure the directory is in your PATH (if not already)
-echo 'export PATH=$PATH:/usr/local/share' >> ~/.bashrc
-source ~/.bashrc
-```
-When you run Bril for the first time, a JSON file will be created in the same directory as the executable.
-This file serves as the database for your tasks.
+1. First, clone the repository and navigate to the project directory:
+   ```bash
+   git clone https://github.com/branila/bril.git
+   cd bril
+   ```
+
+2. Build the project:
+   ```bash
+   go build -o bril
+   ```
+
+3. Install the executable:
+   ```bash
+   # On Unix-like systems (Linux/macOS)
+   sudo mv bril /usr/local/bin/
+
+   # On Windows (run PowerShell as Administrator)
+   move bril.exe C:\Windows\System32\
+   ```
+
+### Database Location
+
+When you run Bril for the first time, it will automatically create its database in your system's user configuration directory:
+
+- Linux: `~/.config/bril/bril.json`
+- macOS: `~/Library/Application Support/bril/bril.json`
+- Windows: `%AppData%\bril\bril.json`
+
+You don't need to create these directories manually - Bril will handle this automatically on first run.
+
+### Verifying the Installation
+
+To verify that Bril was installed correctly:
+
+1. Open a new terminal window (this ensures your PATH is updated)
+2. Run:
+   ```bash
+   bril list
+   ```
+   You should see an empty task list, indicating that Bril is working correctly.
+
+### Troubleshooting
+
+If you encounter any issues:
+
+1. Ensure the executable is in your system PATH:
+   ```bash
+   # On Unix-like systems
+   which bril
+
+   # On Windows
+   where bril
+   ```
+
+2. Check that you have write permissions in your user configuration directory:
+   ```bash
+   # On Unix-like systems
+   ls -la ~/.config/bril/
+
+   # On Windows
+   dir %AppData%\bril
+   ```
+
+3. If Bril isn't creating its database, ensure you have adequate permissions in your user configuration directory.
+
+### Uninstalling
+
+To uninstall Bril:
+
+1. Remove the executable:
+   ```bash
+   # On Unix-like systems
+   sudo rm /usr/local/bin/bril
+
+   # On Windows (run PowerShell as Administrator)
+   del C:\Windows\System32\bril.exe
+   ```
+
+2. Remove the database and configuration directory:
+   ```bash
+   # On Linux
+   rm -rf ~/.config/bril
+
+   # On macOS
+   rm -rf ~/Library/Application\ Support/bril
+
+   # On Windows
+   rmdir /s /q %AppData%\bril
+   ```
 
 ## Platform Support
-Bril currently works flawlessly on all Linux distributions I have tested.
-With a few minor adjustments, it also works on Windows and macOS.
-In the future, I plan to ensure full support for all major operating systems, making Bril even more versatile and accessible.
+Bril is designed to work seamlessly across all major operating systems.
+The application automagically adapts to your operating system, storing data in the appropriate system-specific configuration directories and using platform-specific commands where necessary.
 
 ## Usage
 Bril offers a variety of commands to manage your tasks. Here’s a detailed overview with syntax and examples:
@@ -62,7 +141,7 @@ Adds a task named "Buy groceries" with priority 1, a deadline of December 31, 20
 **Syntax:**
 ```bash
 bril list [--all] [--done] [--tag <string>] [--expired] [--deleted] [--sort <name|priority|deadline>]
-# or 
+# or
 bril ls [--all] [--done] [--tag <string>] [--expired] [--deleted] [--sort <name|priority|deadline>]
 ```
 **Examples:**
@@ -90,8 +169,8 @@ Displays detailed information about the task with id 123.
 ### 4. Mark a Task as Done
 **Syntax:**
 ```bash
-bril do <task id> 
-# or 
+bril do <task id>
+# or
 bril done <task id>
 ```
 **Example:**
@@ -114,8 +193,8 @@ Reverts the task with id 123 back to an incomplete state.
 ### 6. Delete a Task
 **Syntax:**
 ```bash
-bril rm <task id> 
-# or 
+bril rm <task id>
+# or
 bril delete <task id>
 ```
 **Example:**
@@ -209,7 +288,7 @@ Supported tag commands:
 - **Delete a Tag:**
   ```bash
   bril tag delete <tag name>
-  # or 
+  # or
   bril tag rm <tag name>
   ```
   **Example:**
@@ -229,7 +308,7 @@ Supported tag commands:
 - **List Tags:**
   ```bash
   bril tag list
-  # or 
+  # or
   bril tag ls
   ```
   **Example:**
