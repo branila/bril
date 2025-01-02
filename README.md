@@ -30,24 +30,24 @@ Before installing Bril, ensure you have:
 ### Installation Steps
 
 1. First, clone the repository and navigate to the project directory:
-   ```bash
-   git clone https://github.com/branila/bril.git
-   cd bril
-   ```
+```bash
+git clone https://github.com/branila/bril.git
+cd bril
+```
 
 2. Build the project:
-   ```bash
-   go build -o bril
-   ```
+```bash
+go build -o bril
+```
 
 3. Install the executable:
-   ```bash
-   # On Unix-like systems (Linux/macOS)
-   sudo mv bril /usr/local/bin/
+```bash
+# On Unix-like systems (Linux/macOS)
+sudo mv bril /usr/local/bin/
 
-   # On Windows (run PowerShell as Administrator)
-   move bril.exe C:\Windows\System32\
-   ```
+# On Windows (run PowerShell as Administrator)
+move bril.exe C:\Windows\System32\
+```
 
 ### Database Location
 
@@ -63,32 +63,32 @@ To verify that Bril was installed correctly:
 
 1. Open a new terminal window (this ensures your PATH is updated)
 2. Run:
-   ```bash
-   bril list
-   ```
-   You should see an empty task list, indicating that Bril is working correctly.
+```bash
+bril list
+```
+You should see an empty task list, indicating that Bril is working correctly.
 
 ### Troubleshooting
 
 If you encounter any issues:
 
 1. Ensure the executable is in your system PATH:
-   ```bash
-   # On Unix-like systems
-   which bril
+```bash
+# On Unix-like systems
+which bril
 
-   # On Windows
-   where bril
-   ```
+# On Windows
+where bril
+```
 
 2. Check that you have write permissions in your user configuration directory:
-   ```bash
-   # On Unix-like systems
-   ls -la ~/.config/bril/
+```bash
+# On Unix-like systems
+ls -la ~/.config/bril/
 
-   # On Windows
-   dir %AppData%\bril
-   ```
+# On Windows
+dir %AppData%\bril
+```
 
 3. If Bril isn't creating its database, ensure you have adequate permissions in your user configuration directory.
 
@@ -97,25 +97,25 @@ If you encounter any issues:
 To uninstall Bril:
 
 1. Remove the executable:
-   ```bash
-   # On Unix-like systems
-   sudo rm /usr/local/bin/bril
+```bash
+# On Unix-like systems
+sudo rm /usr/local/bin/bril
 
-   # On Windows (run PowerShell as Administrator)
-   del C:\Windows\System32\bril.exe
-   ```
+# On Windows (run PowerShell as Administrator)
+del C:\Windows\System32\bril.exe
+```
 
 2. Remove the database and configuration directory:
-   ```bash
-   # On Linux
-   rm -rf ~/.config/bril
+```bash
+# On Linux
+rm -rf ~/.config/bril
 
-   # On macOS
-   rm -rf ~/Library/Application\ Support/bril
+# On macOS
+rm -rf ~/Library/Application\ Support/bril
 
-   # On Windows
-   rmdir /s /q %AppData%\bril
-   ```
+# On Windows
+rmdir /s /q %AppData%\bril
+```
 
 ## Platform Support
 Bril is designed to work seamlessly across all major operating systems.
@@ -127,20 +127,20 @@ Bril offers a variety of commands to manage your tasks. Here’s a detailed over
 ### 1. Add a Task
 **Syntax:**
 ```bash
-bril add <task name> [--priority <int>] [--due <date>] [--tag <string>] [--note <string>]
+bril add <task name> [--priority <int> | -p <int>] [--due <date> | -d <date>] [--tag <string> | -t <string>] [--note <string> | -n <string>]
 ```
 **Example:**
 ```bash
-bril add "Buy groceries" --priority 1 --due "31/12/2024" --tag "shopping" --note "Remember to buy milk"
+bril add "Try bril" --priority 10 --due "13/11/2025" --tag "important" --note "It will change your life"
 ```
 Adds a task named "Buy groceries" with priority 1, a deadline of December 31, 2024, tagged as "shopping," and a note.
 
 ### 2. List Tasks
 **Syntax:**
 ```bash
-bril list [--all] [--done] [--tag <string>] [--expired] [--deleted] [--sort <name|priority|deadline>]
+bril list [--all | -a] [--done | -d] [--tag <string> | -t <string>] [--expired | -e] [--deleted | -x] [--sort <name|priority|deadline> | -s <name|priority|deadline>]
 # or
-bril ls [--all] [--done] [--tag <string>] [--expired] [--deleted] [--sort <name|priority|deadline>]
+bril ls [--all | -a] [--done | -d] [--tag <string> | -t <string>] [--expired | -e] [--deleted | -x] [--sort <name|priority|deadline> | -s <name|priority|deadline>]
 ```
 **Examples:**
 ```bash
@@ -151,7 +151,7 @@ Lists all tasks, including completed and deleted ones.
 ```bash
 bril list --tag "work" --sort priority
 ```
-Lists tasks tagged as "work," sorted by priority.
+Lists tasks tagged as "work", sorted by priority.
 
 ### 3. View a Task
 **Syntax:**
@@ -160,9 +160,9 @@ bril view <task id>
 ```
 **Example:**
 ```bash
-bril view 123
+bril view 13
 ```
-Displays detailed information about the task with id 123.
+Displays detailed information about the task with id 13.
 
 ### 4. Mark a Task as Done
 **Syntax:**
@@ -173,9 +173,9 @@ bril done <task id>
 ```
 **Example:**
 ```bash
-bril do 123
+bril do 13
 ```
-Marks the task with id 123 as completed.
+Marks the task with id 13 as completed.
 
 ### 5. Undo Task Completion
 **Syntax:**
@@ -184,9 +184,9 @@ bril undo <task id>
 ```
 **Example:**
 ```bash
-bril undo 123
+bril undo 13
 ```
-Reverts the task with id 123 back to an incomplete state.
+Reverts the task with id 13 back to an incomplete state.
 
 ### 6. Delete a Task
 **Syntax:**
@@ -197,9 +197,9 @@ bril delete <task id>
 ```
 **Example:**
 ```bash
-bril rm 123
+bril rm 13
 ```
-Logically deletes the task with id 123.
+Logically deletes the task with id 13.
 
 ### 7. Restore a Deleted Task
 **Syntax:**
@@ -208,9 +208,9 @@ bril restore <task id>
 ```
 **Example:**
 ```bash
-bril restore 123
+bril restore 13
 ```
-Restores the task with id 123 that was previously deleted.
+Restores the task with id 13 that was previously deleted.
 
 ### 8. Set a Reminder
 **Syntax:**
@@ -219,35 +219,26 @@ bril remind <task id> <time>
 ```
 **Example:**
 ```bash
-bril remind 123 "15:30"
+bril remind 13 "15:30"
 ```
-Sets a reminder for the task with id 123 at 3:30 PM.
+Sets a reminder for the task with id 13 at 3:30 PM. At the moment bril only supports european time format.
 
 **Note:** Reminders currently use `notify-send` and are not persistent after reboot. I plan to implement a more robust reminder system in future releases.
 
-Supported time formats:
-- `DD/MM/YYYY-HH:MM` (e.g., `31/12/2024-15:30`)
-- `HH:MM-DD/MM/YYYY` (e.g., `15:30-31/12/2024`)
-- `DD/MM/YYYY` (e.g., `31/12/2024`)
-- `DD-MM-YYYY` (e.g., `31-12-2024`)
-- `DD/MM` (e.g., `31/12`)
-- `HH:MM` (e.g., `15:30`)
-- `HH.MM` (e.g., `15.30`)
-
 Supported durations:
-- Regex: `^(?:\d+[yMwdhms])+$`
+- Regexp: `^(?:\d+[yMwdhms])+$`
 - Example: `1d2h30m` (1 day, 2 hours, 30 minutes)
 
 ### 9. Find Tasks
 **Syntax:**
 ```bash
-bril find <query> [--all] [--done] [--tag <string>] [--expired] [--deleted] [--sort <name|priority|deadline>]
+bril find <query> [--all | -a] [--done | -d] [--tag <string> | -t <string>] [--expired | -e] [--deleted | -x] [--sort <name|priority|deadline> | -s <name|priority|deadline>]
 ```
 **Example:**
 ```bash
-bril find "groceries" --sort deadline
+bril find "rocket science" --sort deadline
 ```
-Searches for tasks containing the word "groceries" and sorts them by deadline.
+Searches for tasks containing "rocket science" and sorts them by deadline.
 
 ### 10. Reset
 **Syntax:**
@@ -259,11 +250,11 @@ Completely resets the database, removing all tasks.
 ### 11. Edit a Task
 **Syntax:**
 ```bash
-bril edit <task id> [--name <string>] [--state <string>] [--tag <string>] [--priority <int>] [--note <string>] [--deadline <date>]
+bril edit <task id> [--name <string> | -n <string>] [--state <done|deleted|undone|active>] [--tag <string> | -t <string>] [--priority <int> | -p <int>] [--note <string> | -m <string>] [--deadline <date> | -n <date>]
 ```
 **Example:**
 ```bash
-bril edit 123 --name "Buy vegetables" --priority 2 --deadline "01/01/2025"
+bril edit 13 --name "Win a nobel prize" --priority 10 --deadline "next year"
 ```
 Edits the task with id 123, changing its name, priority, and deadline.
 
@@ -275,11 +266,11 @@ bril tag <command> [args]
 Supported tag commands:
 - **Add a Tag:**
   ```bash
-  bril tag add <tag> [--priority <int>]
+  bril tag add <tag> [--priority <int> | -p <int>]
   ```
   **Example:**
   ```bash
-  bril tag add "urgent" --priority 1
+  bril tag add "urgent" --priority 10
   ```
   The priority of a tag acts as the default priority for tasks assigned that tag, provided no other priority is explicitly set.
 
@@ -296,7 +287,7 @@ Supported tag commands:
 
 - **Edit a Tag:**
   ```bash
-  bril tag edit <tag name> [--name <string>] [--priority <int>]
+  bril tag edit <tag name> [--name <string> | -n <string>] [--priority <int> | -p <int>]
   ```
   **Example:**
   ```bash
