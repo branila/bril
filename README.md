@@ -51,13 +51,11 @@ Before installing Bril, ensure you have:
 
 ### Database Location
 
-When you run Bril for the first time, it will automatically create its database in your system's user configuration directory:
+When you run Bril for the first time, it will automagically create its database in your system's user configuration directory:
 
 - Linux: `~/.config/bril/bril.json`
 - macOS: `~/Library/Application Support/bril/bril.json`
 - Windows: `%AppData%\bril\bril.json`
-
-You don't need to create these directories manually - Bril will handle this automatically on first run.
 
 ### Verifying the Installation
 
