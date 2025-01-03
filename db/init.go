@@ -3,7 +3,6 @@ package db
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -15,8 +14,6 @@ var dbPath string
 
 func Init() {
 	dbPath = getDbPath()
-
-	fmt.Println("dbPath:", dbPath)
 
 	prepareDb(dbPath)
 
