@@ -11,7 +11,7 @@ import (
 
 func Find() {
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: bril find <query> [flags]")
+		fmt.Println("Usage: bril find <query> [--all | -a] [--done | -d] [--tag <string> | -t <string>] [--expired | -e] [--deleted | -x] [--sort <name|priority|deadline> | -s <name|priority|deadline>]")
 		return
 	}
 

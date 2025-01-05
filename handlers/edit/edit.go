@@ -16,7 +16,7 @@ func allFlagsUnset(flags EditFlags) bool {
 
 func Edit() {
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: bril edit <task id> [flags]")
+		fmt.Println("Usage: bril edit <task id> [--name <string> | -n <string>] [--state <done|deleted|undone|active>] [--tag <string> | -t <string>] [--priority <int> | -p <int>] [--note <string> | -m <string>] [--deadline <date> | -n <date>]")
 		return
 	}
 

@@ -11,7 +11,7 @@ import (
 
 func Add() {
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: bril add <task name> [flags]")
+		fmt.Println("Usage: bril add <task name> [--priority <int> | -p <int>] [--due <date> | -d <date>] [--tag <string> | -t <string>] [--note <string> | -n <string>]")
 		return
 	}
 

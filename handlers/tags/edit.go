@@ -30,7 +30,7 @@ func getEditFlags() EditTagFlags {
 
 func Edit() {
 	if len(os.Args) < 4 {
-		fmt.Println("Usage: bril tags edit <tag name>")
+		fmt.Println("Usage: bril tag edit <tag name> [--name <string> | -n <string>] [--priority <int> | -p <int>]")
 		return
 	}
 
