@@ -24,17 +24,17 @@ func getFlags() AddFlags {
 	fs := flag.NewFlagSet("addFlags", flag.ExitOnError)
 
 	fs.IntVar(&flags.Priority, "p", -1, "Task Priority")
-	fs.IntVar(&flags.Priority, "Priority", -1, "Task Priority")
+	fs.IntVar(&flags.Priority, "priority", -1, "Task Priority")
 
 	fs.StringVar(&flags.Due, "d", "", "Task Due date")
-	fs.StringVar(&flags.Due, "Due", "", "Task Due date")
+	fs.StringVar(&flags.Due, "due", "", "Task Due date")
 	fs.StringVar(&flags.Due, "deadline", "", "Task Due date")
 
 	fs.StringVar(&flags.Tag, "t", "", "Task Tag")
-	fs.StringVar(&flags.Tag, "Tag", "", "Task Tag")
+	fs.StringVar(&flags.Tag, "tag", "", "Task Tag")
 
 	fs.StringVar(&flags.Note, "n", "", "Task Note")
-	fs.StringVar(&flags.Note, "Note", "", "Task Note")
+	fs.StringVar(&flags.Note, "note", "", "Task Note")
 
 	fs.Parse(os.Args[3:])
 
