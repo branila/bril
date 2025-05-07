@@ -12,6 +12,7 @@ import (
 
 var dbPath string
 
+// Initializes the json database
 func Init() {
 	dbPath = getDbPath()
 
@@ -28,6 +29,7 @@ func Init() {
 	}
 }
 
+// Gets the json database path
 func getDbPath() string {
 	userDir, err := os.UserConfigDir()
 	if err != nil {
@@ -42,6 +44,7 @@ func getDbPath() string {
 	return filepath.Join(brilDir, dbName)
 }
 
+// Creates an empty database
 func prepareDb(path string) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		db := types.Db{}
